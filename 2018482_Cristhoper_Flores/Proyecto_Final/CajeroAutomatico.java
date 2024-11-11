@@ -22,6 +22,7 @@ public class CajeroAutomatico {
 
     public static final double SALDO_INICIAL = 5500.88;
     public static final double TIPO_CAMBIO = 4.00;
+    public static double saldo = SALDO_INICIAL;  
     private static final String[] unidades = {
         "", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez",
         "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve", "veinte"
@@ -35,17 +36,14 @@ public class CajeroAutomatico {
         "", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"
     };
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);  
-        double saldo = SALDO_INICIAL;   
-        double tipoCambio = TIPO_CAMBIO;  
-        String tarjeta = validacionTarjeta();        
+        Scanner scanner = new Scanner(System.in);     
+        String tarjeta = validacionTarjeta(scanner);        
         System.out.print("Ingresa su nombre: ");
         String nombre= scanner.nextLine();
         System.out.print("Ingresa su apellido: ");
         String apellido= scanner.nextLine();    
-        int tipoMoneda= validarMoneda();
-        double retiro = OperacionRetirar(tipoMoneda);
-        saldo -= (tipoMoneda == 2) ?  (retiro * tipoCambio) :  retiro;
+        int tipoMoneda= validarMoneda(scanner);
+        double retiro = OperacionRetirar(tipoMoneda,scanner);
         BigDecimal saldoFinal = new BigDecimal(saldo).setScale(2,RoundingMode.HALF_UP);
         String retiroTexto= Mensaje(retiro,tipoMoneda);
         LocalDateTime estructurafechaHora = LocalDateTime.now();
@@ -57,8 +55,7 @@ public class CajeroAutomatico {
 
         scanner.close();
     }
-    public static String validacionTarjeta(){               
-        Scanner scanner = new Scanner(System.in);  
+    public static String validacionTarjeta(Scanner scanner){                
         String numeroTarjeta;     
         do{
             System.out.print("Ingresa el número de tarjeta: ");
@@ -73,8 +70,7 @@ public class CajeroAutomatico {
        return numeroTarjeta;
        
     }
-    public static int validarMoneda(){               
-        Scanner scanner = new Scanner(System.in);  
+    public static int validarMoneda(Scanner scanner){                      
         int moneda;         
         do{
             System.out.print("Retirar: \n 1.Soles \n 2.Dolares \n" );
@@ -88,29 +84,28 @@ public class CajeroAutomatico {
         }while(true);
        return moneda;
     } 
-    public static double OperacionRetirar(int moneda){               
-        Scanner scanner = new Scanner(System.in);  
-        double saldo = SALDO_INICIAL;
-        double tipoCambio = TIPO_CAMBIO;
+    public static double OperacionRetirar(int moneda,Scanner scanner){               
         double montoRetiro;         
         do{
             System.out.print("Ingrese el monto a retirar:" );
              montoRetiro = scanner.nextDouble();
-             if(moneda == 2){
-                montoRetiro = montoRetiro * tipoCambio;
-                if (montoRetiro > 0 && montoRetiro < saldo) {
-                    montoRetiro =montoRetiro / tipoCambio;
+             if(montoRetiro <= 0 || montoRetiro > saldo){
+                 System.out.println("¡ERROR! El monto ingresado no es valido");
+             }else if(moneda == 2){
+                montoRetiro = montoRetiro * TIPO_CAMBIO;
+                if (montoRetiro < saldo) {
+                    saldo = saldo - montoRetiro;
+                    montoRetiro =montoRetiro / TIPO_CAMBIO;
+                    break;
+                }else System.out.println("¡ERROR! El monto ingresado no es valido");  
+            }else{
+                if ( montoRetiro < saldo) {
                     saldo = saldo - montoRetiro;
                     break;
                 }    
-            }else if (moneda == 1){
-                saldo = saldo - montoRetiro;
-                break;
-            } else{
-                System.out.println("¡ERROR! El monto ingresado no es valido");
-            }
+            }            
         }while(true);
-       return montoRetiro;
+        return montoRetiro;
     } 
     public static String convertirTexto(int retiro) {
         if (retiro == 0) {
