@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>EstacionGrifo.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+EstacionGrifo.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">SimpleDateFormat</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">EstacionGrifo </span><span class="s2">{</span>
+    <span class="s0">private static final double </span><span class="s1">SALDO_INICIAL_TARJETA </span><span class="s2">= </span><span class="s3">1250.44</span><span class="s2">;</span>
+    <span class="s0">private static final double</span><span class="s2">[] </span><span class="s1">PRECIOS_COMBUSTIBLE </span><span class="s2">= {</span><span class="s3">19.40</span><span class="s2">, </span><span class="s3">16.80</span><span class="s2">, </span><span class="s3">9.50</span><span class="s2">}; </span><span class="s4">// Premium, Regular, Diesel</span>
+
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">Scanner scanner </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+
+        <span class="s4">// Solicitar número de placa</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Ingrese el número de placa (6 caracteres alfanuméricos): &quot;</span><span class="s2">);</span>
+        <span class="s1">String placa </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+        <span class="s0">while </span><span class="s2">(!</span><span class="s1">placa</span><span class="s2">.</span><span class="s1">matches</span><span class="s2">(</span><span class="s5">&quot;[a-zA-Z0-9]{6}&quot;</span><span class="s2">)) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Número de placa inválido. Ingrese 6 caracteres alfanuméricos: &quot;</span><span class="s2">);</span>
+            <span class="s1">placa </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+        <span class="s2">}</span>
+        <span class="s4">// Solicitar nombre</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Ingrese su nombre: &quot;</span><span class="s2">);</span>
+        <span class="s1">String nombre </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+        <span class="s4">// Solicitar tipo de combustible</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Seleccione el tipo de combustible: 1. Premium, 2. Regular, 3. Diesel&quot;</span><span class="s2">);</span>
+        <span class="s0">int </span><span class="s1">tipoCombustible </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+        <span class="s0">double </span><span class="s1">precioUnitario </span><span class="s2">= </span><span class="s1">PRECIOS_COMBUSTIBLE</span><span class="s2">[</span><span class="s1">tipoCombustible </span><span class="s2">- </span><span class="s3">1</span><span class="s2">];</span>
+
+        <span class="s4">// Solicitar monto de carga</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Ingrese el monto a cargar o 300 para tanque lleno: &quot;</span><span class="s2">);</span>
+        <span class="s0">double </span><span class="s1">montoCarga </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextDouble</span><span class="s2">();</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">montoCarga </span><span class="s2">== </span><span class="s3">300</span><span class="s2">) {</span>
+            <span class="s1">montoCarga </span><span class="s2">= </span><span class="s3">300</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s4">// Calcular cantidad en galones y verificar saldo</span>
+        <span class="s0">double </span><span class="s1">cantidadGalones </span><span class="s2">= </span><span class="s1">montoCarga </span><span class="s2">/ </span><span class="s1">precioUnitario</span><span class="s2">;</span>
+        <span class="s0">double </span><span class="s1">saldoRestante </span><span class="s2">= </span><span class="s1">SALDO_INICIAL_TARJETA </span><span class="s2">- </span><span class="s1">montoCarga</span><span class="s2">;</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">montoCarga </span><span class="s2">&gt; </span><span class="s3">0 </span><span class="s2">&amp;&amp; </span><span class="s1">montoCarga </span><span class="s2">&lt;= </span><span class="s1">SALDO_INICIAL_TARJETA</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Monto pagado: &quot; </span><span class="s2">+ </span><span class="s1">montoCarga </span><span class="s2">+ </span><span class="s5">&quot; soles&quot;</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Monto en letras: &quot; </span><span class="s2">+ </span><span class="s1">convertirMontoALetras</span><span class="s2">((</span><span class="s0">int</span><span class="s2">) </span><span class="s1">montoCarga</span><span class="s2">));</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Placa: &quot; </span><span class="s2">+ </span><span class="s1">placa</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Nombre: &quot; </span><span class="s2">+ </span><span class="s1">nombre</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Fecha y hora de la transacción: &quot; </span><span class="s2">+ </span><span class="s1">obtenerFechaHora</span><span class="s2">());</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Precio unitario: &quot; </span><span class="s2">+ </span><span class="s1">precioUnitario </span><span class="s2">+ </span><span class="s5">&quot; soles/galón&quot;</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Cantidad de galones: &quot; </span><span class="s2">+ </span><span class="s1">cantidadGalones</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Saldo restante en tarjeta: &quot; </span><span class="s2">+ </span><span class="s1">saldoRestante</span><span class="s2">);</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Saldo insuficiente para la carga solicitada.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">scanner</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+
+    <span class="s2">}</span>
+
+    <span class="s4">// Método para convertir el monto a letras</span>
+    <span class="s0">private static </span><span class="s1">String convertirMontoALetras</span><span class="s2">(</span><span class="s0">int </span><span class="s1">monto</span><span class="s2">) {</span>
+        <span class="s0">switch </span><span class="s2">(</span><span class="s1">monto</span><span class="s2">) {</span>
+            <span class="s0">case </span><span class="s3">1000</span><span class="s2">: </span><span class="s0">return </span><span class="s5">&quot;mil soles&quot;</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s3">500</span><span class="s2">: </span><span class="s0">return </span><span class="s5">&quot;quinientos soles&quot;</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s3">300</span><span class="s2">: </span><span class="s0">return </span><span class="s5">&quot;trescientos soles&quot;</span><span class="s2">;</span>
+            <span class="s0">default</span><span class="s2">: </span><span class="s0">return </span><span class="s1">monto </span><span class="s2">+ </span><span class="s5">&quot; soles&quot;</span><span class="s2">; </span><span class="s4">// Simplificación</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s4">// Método para obtener la fecha y hora actual</span>
+    <span class="s0">private static </span><span class="s1">String obtenerFechaHora</span><span class="s2">() {</span>
+        <span class="s1">SimpleDateFormat formatoFechaHora </span><span class="s2">= </span><span class="s0">new </span><span class="s1">SimpleDateFormat</span><span class="s2">(</span><span class="s5">&quot;dd/MM/yyyy HH:mm:ss&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">formatoFechaHora</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Date</span><span class="s2">());</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>

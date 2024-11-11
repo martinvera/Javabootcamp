@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>CajeroAutomatico.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CajeroAutomatico.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">NumberFormat</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">DecimalFormat</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Date</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">SimpleDateFormat</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">CajeroAutomatico </span><span class="s2">{</span>
+    <span class="s0">private static final double </span><span class="s1">SALDO_INICIAL </span><span class="s2">= </span><span class="s3">5500.88</span><span class="s2">;</span>
+    <span class="s0">private static final double </span><span class="s1">TIPO_CAMBIO </span><span class="s2">= </span><span class="s3">4.0</span><span class="s2">;</span>
+
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">Scanner scanner </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+        <span class="s1">String numeroTarjeta</span><span class="s2">;</span>
+        <span class="s0">double </span><span class="s1">saldoRestante </span><span class="s2">= </span><span class="s1">SALDO_INICIAL</span><span class="s2">;</span>
+
+        <span class="s4">// Solicitar número de tarjeta con validación de longitud exacta</span>
+        <span class="s0">do </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Ingrese el número de tarjeta (16 dígitos): &quot;</span><span class="s2">);</span>
+            <span class="s1">numeroTarjeta </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">numeroTarjeta</span><span class="s2">.</span><span class="s1">length</span><span class="s2">() != </span><span class="s3">16 </span><span class="s2">|| !</span><span class="s1">numeroTarjeta</span><span class="s2">.</span><span class="s1">matches</span><span class="s2">(</span><span class="s5">&quot;</span><span class="s0">\\</span><span class="s5">d+&quot;</span><span class="s2">)) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Número de tarjeta inválido. Debe contener exactamente 16 dígitos numéricos.&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">while </span><span class="s2">(</span><span class="s1">numeroTarjeta</span><span class="s2">.</span><span class="s1">length</span><span class="s2">() != </span><span class="s3">16 </span><span class="s2">|| !</span><span class="s1">numeroTarjeta</span><span class="s2">.</span><span class="s1">matches</span><span class="s2">(</span><span class="s5">&quot;</span><span class="s0">\\</span><span class="s5">d+&quot;</span><span class="s2">));</span>
+
+        <span class="s4">// Solicitar opción de moneda</span>
+        <span class="s0">int </span><span class="s1">opcionMoneda</span><span class="s2">;</span>
+        <span class="s0">do </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Seleccione moneda de retiro (1: soles, 2: dólares): &quot;</span><span class="s2">);</span>
+            <span class="s1">opcionMoneda </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">opcionMoneda </span><span class="s2">!= </span><span class="s3">1 </span><span class="s2">&amp;&amp; </span><span class="s1">opcionMoneda </span><span class="s2">!= </span><span class="s3">2</span><span class="s2">) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Opción inválida. Debe seleccionar 1 para soles o 2 para dólares.&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">while </span><span class="s2">(</span><span class="s1">opcionMoneda </span><span class="s2">!= </span><span class="s3">1 </span><span class="s2">&amp;&amp; </span><span class="s1">opcionMoneda </span><span class="s2">!= </span><span class="s3">2</span><span class="s2">);</span>
+
+        <span class="s4">// Solicitar monto a retirar</span>
+        <span class="s0">double </span><span class="s1">montoRetiro</span><span class="s2">;</span>
+        <span class="s0">do </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s5">&quot;Ingrese el monto a retirar: &quot;</span><span class="s2">);</span>
+            <span class="s1">montoRetiro </span><span class="s2">= </span><span class="s1">scanner</span><span class="s2">.</span><span class="s1">nextDouble</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">montoRetiro </span><span class="s2">&lt;= </span><span class="s3">0</span><span class="s2">) {</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;El monto debe ser mayor a cero.&quot;</span><span class="s2">);</span>
+            <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">opcionMoneda </span><span class="s2">== </span><span class="s3">2</span><span class="s2">) { </span><span class="s4">// Si se retira en dólares, convertir a soles</span>
+                <span class="s1">montoRetiro </span><span class="s2">*= </span><span class="s1">TIPO_CAMBIO</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">while </span><span class="s2">(</span><span class="s1">montoRetiro </span><span class="s2">&lt;= </span><span class="s3">0</span><span class="s2">);</span>
+
+        <span class="s4">// Validar monto de retiro y realizar conversión si es necesario</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">montoRetiro </span><span class="s2">&lt;= </span><span class="s1">SALDO_INICIAL</span><span class="s2">) {</span>
+            <span class="s1">saldoRestante </span><span class="s2">-= </span><span class="s1">montoRetiro</span><span class="s2">;</span>
+
+            <span class="s4">// Imprimir resultado del retiro</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Monto retirado: &quot; </span><span class="s2">+ </span><span class="s1">formatMonto</span><span class="s2">(</span><span class="s1">montoRetiro</span><span class="s2">) + </span><span class="s5">&quot; soles&quot;</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Monto en letras: &quot; </span><span class="s2">+ </span><span class="s1">convertirNumeroALetras</span><span class="s2">(</span><span class="s1">montoRetiro</span><span class="s2">));</span>
+            <span class="s4">// Mostrar el saldo restante</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Saldo restante: &quot; </span><span class="s2">+ </span><span class="s1">formatMonto</span><span class="s2">(</span><span class="s1">saldoRestante</span><span class="s2">) + </span><span class="s5">&quot; soles&quot;</span><span class="s2">);</span>
+
+            <span class="s4">// Mostrar la fecha y hora de la transacción</span>
+            <span class="s1">SimpleDateFormat formatter </span><span class="s2">= </span><span class="s0">new </span><span class="s1">SimpleDateFormat</span><span class="s2">(</span><span class="s5">&quot;dd/MM/yyyy HH:mm:ss&quot;</span><span class="s2">);</span>
+            <span class="s1">Date fechaActual </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Date</span><span class="s2">();</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;Fecha y hora de la transacción: &quot; </span><span class="s2">+ </span><span class="s1">formatter</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">fechaActual</span><span class="s2">));</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s5">&quot;No hay suficiente saldo en la tarjeta para realizar el retiro.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s1">scanner</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s4">// Método para convertir monto a letras</span>
+    <span class="s0">public static </span><span class="s1">String formatMonto</span><span class="s2">(</span><span class="s0">double </span><span class="s1">monto</span><span class="s2">) {</span>
+        <span class="s1">NumberFormat formatter </span><span class="s2">= </span><span class="s0">new </span><span class="s1">DecimalFormat</span><span class="s2">(</span><span class="s5">&quot;#,###.00&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">formatter</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">monto</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s4">// Método para convertir un número a letras</span>
+    <span class="s0">public static </span><span class="s1">String convertirNumeroALetras</span><span class="s2">(</span><span class="s0">double </span><span class="s1">numero</span><span class="s2">) {</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">unidades </span><span class="s2">= {</span><span class="s5">&quot;&quot;</span><span class="s2">, </span><span class="s5">&quot;uno&quot;</span><span class="s2">, </span><span class="s5">&quot;dos&quot;</span><span class="s2">, </span><span class="s5">&quot;tres&quot;</span><span class="s2">, </span><span class="s5">&quot;cuatro&quot;</span><span class="s2">, </span><span class="s5">&quot;cinco&quot;</span><span class="s2">, </span><span class="s5">&quot;seis&quot;</span><span class="s2">, </span><span class="s5">&quot;siete&quot;</span><span class="s2">, </span><span class="s5">&quot;ocho&quot;</span><span class="s2">, </span><span class="s5">&quot;nueve&quot;</span><span class="s2">};</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">decenas </span><span class="s2">= {</span><span class="s5">&quot;&quot;</span><span class="s2">, </span><span class="s5">&quot;diez&quot;</span><span class="s2">, </span><span class="s5">&quot;veinte&quot;</span><span class="s2">, </span><span class="s5">&quot;treinta&quot;</span><span class="s2">, </span><span class="s5">&quot;cuarenta&quot;</span><span class="s2">, </span><span class="s5">&quot;cincuenta&quot;</span><span class="s2">, </span><span class="s5">&quot;sesenta&quot;</span><span class="s2">, </span><span class="s5">&quot;setenta&quot;</span><span class="s2">, </span><span class="s5">&quot;ochenta&quot;</span><span class="s2">, </span><span class="s5">&quot;noventa&quot;</span><span class="s2">};</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">centenas </span><span class="s2">= {</span><span class="s5">&quot;&quot;</span><span class="s2">, </span><span class="s5">&quot;cien&quot;</span><span class="s2">, </span><span class="s5">&quot;doscientos&quot;</span><span class="s2">, </span><span class="s5">&quot;trescientos&quot;</span><span class="s2">, </span><span class="s5">&quot;cuatrocientos&quot;</span><span class="s2">, </span><span class="s5">&quot;quinientos&quot;</span><span class="s2">, </span><span class="s5">&quot;seiscientos&quot;</span><span class="s2">, </span><span class="s5">&quot;setecientos&quot;</span><span class="s2">, </span><span class="s5">&quot;ochocientos&quot;</span><span class="s2">, </span><span class="s5">&quot;novecientos&quot;</span><span class="s2">};</span>
+
+        <span class="s0">int </span><span class="s1">entero </span><span class="s2">= (</span><span class="s0">int</span><span class="s2">) </span><span class="s1">numero</span><span class="s2">;</span>
+        <span class="s1">String letras </span><span class="s2">= </span><span class="s5">&quot;&quot;</span><span class="s2">;</span>
+
+        <span class="s4">// Procesar cientos</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">entero </span><span class="s2">&gt;= </span><span class="s3">100</span><span class="s2">) {</span>
+            <span class="s1">letras </span><span class="s2">+= </span><span class="s1">centenas</span><span class="s2">[</span><span class="s1">entero </span><span class="s2">/ </span><span class="s3">100</span><span class="s2">] + </span><span class="s5">&quot; &quot;</span><span class="s2">;</span>
+            <span class="s1">entero </span><span class="s2">%= </span><span class="s3">100</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s4">// Procesar decenas</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">entero </span><span class="s2">&gt;= </span><span class="s3">20</span><span class="s2">) {</span>
+            <span class="s1">letras </span><span class="s2">+= </span><span class="s1">decenas</span><span class="s2">[</span><span class="s1">entero </span><span class="s2">/ </span><span class="s3">10</span><span class="s2">] + </span><span class="s5">&quot; &quot;</span><span class="s2">;</span>
+            <span class="s1">entero </span><span class="s2">%= </span><span class="s3">10</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">entero </span><span class="s2">&gt;= </span><span class="s3">10</span><span class="s2">) {</span>
+            <span class="s0">switch </span><span class="s2">(</span><span class="s1">entero</span><span class="s2">) {</span>
+                <span class="s0">case </span><span class="s3">10</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;diez &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">11</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;once &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">12</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;doce &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">13</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;trece &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">14</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;catorce &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">15</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;quince &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">16</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;dieciséis &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">17</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;diecisiete &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">18</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;dieciocho &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s3">19</span><span class="s2">: </span><span class="s1">letras </span><span class="s2">+= </span><span class="s5">&quot;diecinueve &quot;</span><span class="s2">; </span><span class="s0">break</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s1">entero </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s4">// Procesar unidades</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">entero </span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">) {</span>
+            <span class="s1">letras </span><span class="s2">+= </span><span class="s1">unidades</span><span class="s2">[</span><span class="s1">entero</span><span class="s2">] + </span><span class="s5">&quot; &quot;</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">return </span><span class="s1">letras</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">() + </span><span class="s5">&quot; soles&quot;</span><span class="s2">; </span><span class="s4">// Agregar la palabra &quot;soles&quot;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
