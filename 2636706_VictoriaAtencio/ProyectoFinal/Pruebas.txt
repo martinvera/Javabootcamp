@@ -1,0 +1,37 @@
+Ingrese número de tarjeta numerico de 16 digitos formato '9999-9999-9999-9999'
+6756-7777-8787-9876
+El número de tarjeta es válido.
+Ingrese nombre:
+victoria
+Ingrese apellidos:
+atencio
+El saldo inicial es: 5500.88
+El tipo de cambio es: 4
+Ingrese la moneda de retiro
+1. Soles
+2. Dolares
+2
+Ingreso el monto en DOLARES a retirar:
+987.66
+El monto retirado es: novecientos ochenta siete con 66/100 DOLARES
+El saldo de la cuenta es: 1550.24 SOLES
+Fecha y Hora de la transaccion: 2024-11-10 16:20:11
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ingrese número de tarjeta numerico de 16 digitos formato '9999-9999-9999-9999'
+6567-6666-7777-8888
+El número de tarjeta es válido.
+Ingrese nombre:
+VICTORIA
+Ingrese apellidos:
+ATENCIO
+El saldo inicial es: 5500.88
+El tipo de cambio es: 4
+Ingrese la moneda de retiro
+1. Soles
+2. Dolares
+1
+Ingreso el monto en SOLES a retirar:
+4678.98
+El monto retirado es: cuatromil seiscientos setenta ocho con 98/100 SOLES
+El saldo de la cuenta es: 821.90 SOLES
+Fecha y Hora de la transaccion: 2024-11-10 16:26:37
