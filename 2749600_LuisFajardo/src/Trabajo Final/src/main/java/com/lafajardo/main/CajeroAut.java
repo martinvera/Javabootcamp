@@ -59,7 +59,9 @@ public class CajeroAut extends Transaccion {
             System.out.print("Por favor, ingrese su número de tarjeta: ");
             numeroTarjeta = scanner.nextLine();
         }
-        return numeroTarjeta;
+        // Enmascara todos los dígitos excepto los últimos cuatro
+        String numeroEnmascarado = "**** **** **** " + numeroTarjeta.substring(12);
+        return numeroEnmascarado;
     }
 
     //Metodo para nombre y apellido.
@@ -68,28 +70,22 @@ public class CajeroAut extends Transaccion {
         String apellido;
 
         while (true) {
-            System.out.print("Ingrese su nombre (al menos 2 letras, sin caracteres especiales): ");
+            System.out.print("Ingrese su nombre (al menos 2 letras): ");
             nombre = scanner.nextLine().trim();
 
             // Valida longitud y caracteres permitidos
-            if (nombre.length() < 2) {
-                System.out.println("El nombre debe tener al menos 2 letras. Por favor, inténtelo de nuevo.");
-                continue;
-            } else if (!nombre.matches("[a-zA-ZÀ-ÿ\\s]+")) {
-                System.out.println("El nombre solo debe contener letras y espacios. Por favor, inténtelo de nuevo.");
+            if (!Validacion.validarNombreOApellido(nombre, "nombre", 7)) {
                 continue;
             }
 
-            System.out.print("Ingrese su apellido (al menos 2 letras, sin caracteres especiales): ");
+            System.out.print("Ingrese su apellido (al menos 2 letras): ");
             apellido = scanner.nextLine().trim();
 
-            if (apellido.length() < 2) {
-                System.out.println("El apellido debe tener al menos 2 letras. Por favor, inténtelo de nuevo.");
-                continue;
-            } else if (!apellido.matches("[a-zA-ZÀ-ÿ\\s]+")) {
-                System.out.println("El apellido solo debe contener letras y espacios. Por favor, inténtelo de nuevo.");
+            if (!Validacion.validarNombreOApellido(apellido, "apellido", 7)) {
                 continue;
             }
+
+            // Convierte nombre y apellido a mayúsculas
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
 
@@ -134,7 +130,7 @@ public class CajeroAut extends Transaccion {
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, ingrese un número válido.");
-                scanner.next(); // Limpiar la entrada inválida para evitar un bucle infinito
+                scanner.next(); // Limpia la entrada inválida para evitar un bucle infinito
             }
         }
     }

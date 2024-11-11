@@ -10,8 +10,8 @@ public class Transaccion {
         System.out.println("\n--- Recibo de la Transacción ---");
         System.out.println("Titular: " + nombre);
         System.out.println("Número de tarjeta: " + numeroTarjeta);
-        System.out.println("Monto retirado: S/. " + montoRetirado + " (" + Validacion.montoEnLetras(montoRetirado) + ")");
-        System.out.println("Saldo actual: S/. " + cuenta.getSaldo() + " (" + Validacion.montoEnLetras(cuenta.getSaldo()) + ")");
+        System.out.println("Monto retirado: S/ " + montoRetirado + " (" + Validacion.montoEnLetras(montoRetirado) + ")");
+        System.out.println("Saldo actual: S/ " + cuenta.getSaldo() + " (" + Validacion.montoEnLetras(cuenta.getSaldo()) + ")");
         System.out.println("Fecha y hora de transacción: " + Validacion.obtenerFechaHora());
     }
 }
