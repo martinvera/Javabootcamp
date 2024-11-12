@@ -9,6 +9,7 @@ public class Interfaz {
         CajeroAutomatico tarjeta = new CajeroAutomatico();
 
         // Validación de número de tarjeta
+        tarjeta.mensajeInicial();
         String numeroTarjeta = tarjeta.validarTarjeta();
 
         // Solicitar nombre y apellido
