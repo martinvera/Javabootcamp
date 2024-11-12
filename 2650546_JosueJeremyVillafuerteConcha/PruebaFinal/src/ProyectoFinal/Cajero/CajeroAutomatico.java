@@ -2,8 +2,6 @@ package ProyectoFinal.Cajero;
 
 import ProyectoFinal.Banco.Constantes;
 import ProyectoFinal.Banco.Convertidor;
-
-import java.sql.SQLOutput;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
